@@ -3,10 +3,32 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
     <script src="https://gftruj.github.io/webzamples/aframe/controls/oculus-thumbstick-controls.js"></script>
+  
+    <script>
+      AFRAME.registerComponent("click-log", {
+        init: function () {
+          this.myFunction = function (i) {
+            console.log("hi",i);
+          };
+
+          this.el.addEventListener("click", this.myFunction);
+        },
+
+        remove: function () {
+          this.el.removeEventListener("click", this.myFunction);
+        }
+      });
+
+    </script>
+  
   </head>
   <body>
     <a-scene gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/;
     meshoptDecoderPath: https://unpkg.com/meshoptimizer@0.16.0/meshopt_decoder.js;">
+      <a-camera id="camera" look-controls="pointerLockEnabled: true" position="0 2 0">
+        <a-cursor></a-cursor>
+      </a-camera>
+      
         <a-assets>
             <a-asset-item id="cyber_truck" src="https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/cybertruck/model.gltf"></a-asset-item>
             <a-asset-item id="house" src="https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/barn/model.gltf"></a-asset-item>
@@ -19,13 +41,15 @@
             <a-asset-item id="forest" src="forest.glb"></a-asset-item>  
             <a-asset-item id="town" src="town.glb"></a-asset-item>  
         </a-assets>
+
+
       <a-entity environment="preset: default; fog:0; groundColor: #196F3D; groundColor2:#196F3D; dressingColor:#196F3D"  scale="20 20 20"></a-entity>
       <a-entity gltf-model="#gallary" position="-100 0 -25" scale="50 50 50"></a-entity>
       <a-entity gltf-model="#town" position="0 0 35" scale="30 30 30"></a-entity>
       <a-entity gltf-model="#forest" position="90 0 75" scale="30 50 30"></a-entity>
-      <a-entity gltf-model="#house" position="0 0 -25" scale="7 7 7"></a-entity>
-      <a-entity gltf-model="#house1" position="40 2 -25" scale="9 9 9"></a-entity>
-      <a-entity gltf-model="#house2" position="70 1 -25" scale="7 7 7"></a-entity>
+      <a-entity gltf-model="#house" position="0 0 -25" scale="7 7 7" click-log="w2"></a-entity>
+      <a-entity gltf-model="#house1" position="40 4 -25" scale="12 17 9"  click-log="t5"></a-entity>
+      <a-entity gltf-model="#house2" position="70 0.5 -25" scale="9 9 9"></a-entity>
 
       <a-entity gltf-model="#StoneStruct" position="40 0 -90" scale="1 1 1"></a-entity>
       <a-entity gltf-model="#powerHouse" position="-70 0.5 25" scale="7 7 7"></a-entity>
@@ -37,5 +61,7 @@
         <a-entity oculus-touch-controls="hand: right" oculus-thumbstick-controls></a-entity>
     </a-entity>
     </a-scene>
+
+    
   </body>
 </html>
